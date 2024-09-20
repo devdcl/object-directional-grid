@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import CustomTableGrid from './components/CustomTableGrid'
-import './styles/custom.css';
+import CustomTableGrid from './CustomTableGrid'
+import '../styles/custom.css';
 import { Button, TextField } from '@mui/material';
-import { DirectionEnum } from './components/DirectionalTableCell';
-import CustomTableGridWrapper from './components/CustomTableGridWrapper';
+import { DirectionEnum } from './DirectionalTableCell';
 
-const App: React.FC = () => {
+const CustomTableGridWrapper: React.FC = () => {
   const initialGridData = Array.from({ length: 5 }, () =>
     Array.from({ length: 5 }, () => DirectionEnum.NORTH)
   );
@@ -38,8 +37,32 @@ const App: React.FC = () => {
   }
   
   return (
-    <CustomTableGridWrapper />
+    <div className="top-spacing center-content">
+      <div style={{ width: '405px'}}>
+        <CustomTableGrid gridData={gridData}/>
+        <TextField
+              sx={{
+                  '& .MuiInputBase-input': {
+                    textAlign: 'center',
+                    fontSize: '0.8em'
+                  },
+              }}
+              style={{ width: '100%', marginBottom: '20px'}}
+              label="Enter cell coordinates and direction (e.g., 1,3,EAST)"
+              variant="standard"
+              value={inputValue}
+              onChange={handleInputChange}
+              />
+          <Button 
+              variant="contained"
+              color="primary"
+              onClick={handleGridUpdate}
+              style={{ width: '100%' }}>
+              Update Cell
+          </Button>
+        </div>
+    </div>
   );
 };
 
-export default App;
+export default CustomTableGridWrapper;
